@@ -244,7 +244,6 @@ describe('lib/devices:', () => {
             assert.deepEqual(result, {
               id: deviceId,
               name: device.name,
-              sessionTokenId: sessionToken.id,
               type: device.type,
               createdAt: deviceCreatedAt
             }, 'result was correct')
@@ -353,7 +352,6 @@ describe('lib/devices:', () => {
             assert.deepEqual(args[1], {
               id: deviceId,
               name: device.name,
-              sessionTokenId: sessionToken.id,
               type: device.type
             }, 'device info was unmodified')
 

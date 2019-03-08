@@ -749,7 +749,7 @@ describe('remote device', function () {
             })
             .then((devices) => {
               assert.equal(devices.length, 1, 'devices returned 1 item')
-              assert.equal(devices[0].name, '', 'placeholder device record had no name')
+              assert.equal(devices[0].name, 'Device', 'placeholder device record has a default name')
               assert.equal(devices[0].type, 'desktop', 'placeholder device record type defaults to desktop')
 
               // Now attempt to update the name on the placeholder record.

@@ -188,14 +188,11 @@ describe('remote device', function () {
           function (client) {
             return client.updateDevice({ type: 'mobile' })
               .then(
-                function (r) {
-                  assert(false, 'request should have failed')
-                }
-              )
-              .catch(
-                function (err) {
-                  assert.equal(err.code, 400, 'err.code was 400')
-                  assert.equal(err.errno, 108, 'err.errno was 108')
+                function (device) {
+                  assert.ok(device.id, 'device.id was set')
+                  assert.ok(device.createdAt > 0, 'device.createdAt was set')
+                  assert.equal(device.name, 'Device', 'device.name is correct')
+                  assert.equal(device.type, 'mobile', 'device.type is correct')
                 }
               )
           }
@@ -207,20 +204,17 @@ describe('remote device', function () {
     'device registration without required type parameter',
     () => {
       var email = server.uniqueEmail()
+      var deviceName = 'test device'
       var password = 'test password'
       return Client.create(config.publicUrl, email, password)
         .then(
           function (client) {
             return client.updateDevice({ name: 'test device' })
               .then(
-                function () {
-                  assert(false, 'request should have failed')
-                }
-              )
-              .catch(
-                function (err) {
-                  assert.equal(err.code, 400, 'err.code was 400')
-                  assert.equal(err.errno, 108, 'err.errno was 108')
+                function (device) {
+                  assert.ok(device.id, 'device.id was set')
+                  assert.ok(device.createdAt > 0, 'device.createdAt was set')
+                  assert.equal(device.name, deviceName, 'device.name is correct')
                 }
               )
           }

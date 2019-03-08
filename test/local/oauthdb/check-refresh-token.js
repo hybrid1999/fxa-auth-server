@@ -10,8 +10,7 @@ const oauthdbModule = require('../../../lib/oauthdb')
 const { mockLog } = require('../../mocks')
 
 const ISSUER = 'api.accounts.firefox.com'
-const LAST_USED_AT = new Date()
-const AUDIENCE = 'https://accounts.example.com'
+const LAST_USED_AT = new Date().getTime()
 const MOCK_UID = 'ABCDEF'
 const MOCK_CLIENT_ID = '0123456789ABCDEF'
 const JWT_IAT = Date.now()
@@ -42,13 +41,12 @@ describe('oauthdb', () => {
       mockOAuthServer.post('/v1/introspect', body => true)
         .reply(200, {
           active: true,
-          client_id: MOCK_CLIENT_ID,
           scope: 'profile',
+          client_id: MOCK_CLIENT_ID,
           token_type: 'refresh_token',
           exp: JWT_IAT + 60,
           iat: JWT_IAT,
           sub: MOCK_UID,
-          aud: AUDIENCE,
           iss: ISSUER,
           'fxa-lastUsedAt': LAST_USED_AT
         })

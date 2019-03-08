@@ -378,7 +378,7 @@ function mockDB (data, errors) {
       assert.ok(typeof uid === 'string')
       return P.resolve(data.sessions || [])
     }),
-    updateDevice: sinon.spy((uid, sessionTokenId, device) => {
+    updateDevice: sinon.spy((uid, /* sessionTokenId, */device) => {
       assert.ok(typeof uid === 'string')
       return P.resolve(device)
     }),

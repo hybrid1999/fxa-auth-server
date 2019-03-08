@@ -244,6 +244,7 @@ describe('lib/devices:', () => {
             assert.deepEqual(result, {
               id: deviceId,
               name: device.name,
+              sessionTokenId: sessionToken.id,
               type: device.type,
               createdAt: deviceCreatedAt
             }, 'result was correct')
@@ -252,10 +253,10 @@ describe('lib/devices:', () => {
 
             assert.equal(db.createDevice.callCount, 1, 'db.createDevice was called once')
             var args = db.createDevice.args[0]
-            assert.equal(args.length, 3, 'db.createDevice was passed three arguments')
+            assert.equal(args.length, 2, 'db.createDevice was passed two arguments')
             assert.deepEqual(args[0], sessionToken.uid, 'first argument was uid')
-            assert.deepEqual(args[1], sessionToken.id, 'second argument was sessionTokenId')
-            assert.equal(args[2], device, 'third argument was device')
+            //assert.deepEqual(args[1], sessionToken.id, 'second argument was sessionTokenId')
+            assert.equal(args[1], device, 'second argument was device')
 
             assert.equal(log.activityEvent.callCount, 1, 'log.activityEvent was called once')
             args = log.activityEvent.args[0]
@@ -347,12 +348,12 @@ describe('lib/devices:', () => {
 
             assert.equal(db.updateDevice.callCount, 1, 'db.updateDevice was called once')
             var args = db.updateDevice.args[0]
-            assert.equal(args.length, 3, 'db.createDevice was passed three arguments')
+            assert.equal(args.length, 2, 'db.createDevice was passed two arguments')
             assert.deepEqual(args[0], sessionToken.uid, 'first argument was uid')
-            assert.deepEqual(args[1], sessionToken.id, 'second argument was sessionTokenId')
-            assert.deepEqual(args[2], {
+            assert.deepEqual(args[1], {
               id: deviceId,
               name: device.name,
+              sessionTokenId: sessionToken.id,
               type: device.type
             }, 'device info was unmodified')
 
